@@ -22,11 +22,12 @@ import {
 
 import './App.css'
 
-const API_URL = 'http://localhost:8001/api/match'
-const API_ASK_URL = 'http://localhost:8001/api/ask'
-const API_CATCHUP_URL = 'http://localhost:8001/api/catchup'
-const API_MOMENT_URL = 'http://localhost:8001/api/moment'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001'
 
+const API_URL = `${API_BASE_URL}/api/match`
+const API_ASK_URL = `${API_BASE_URL}/api/ask`
+const API_CATCHUP_URL = `${API_BASE_URL}/api/catchup`
+const API_MOMENT_URL = `${API_BASE_URL}/api/moment`
 function App() {
   const [match, setMatch] = useState(null)
   const [loading, setLoading] = useState(true)
