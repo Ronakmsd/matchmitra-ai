@@ -1,4 +1,4 @@
-
+import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,9 +16,24 @@ app = FastAPI(
     version="1.2.0"
 )
 
+FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "")
+
+allowed_origins = [
+    "http://localhost:5175",
+    "https://matchmitra-ai.vercel.app",
+    "https://matchmitra-ctik23c39-match-mitra-ai.vercel.app",
+]
+
+if FRONTEND_ORIGIN:
+    allowed_origins.extend(
+        origin.strip()
+        for origin in FRONTEND_ORIGIN.split(",")
+        if origin.strip()
+    )
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5175"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
